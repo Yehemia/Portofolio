@@ -69,16 +69,35 @@ nav ul li a:hover {
     color: #a855f7; /* Warna ungu saat di-hover, sesuaikan! */
 }
 
-/* Styling Bagian Home */
-#home h1 {
-    font-size: 4rem;
-    margin-bottom: 1rem;
+/* Styling Bagian Home yang Diperbaiki */
+#home {
+    /* Menjadikan section ini memenuhi tinggi layar */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center Vertikal */
+    align-items: center;     /* Center Horizontal */
+    text-align: center;
+    padding: 0 2rem; /* Beri sedikit padding samping */
 }
+
+#home h1 {
+    font-size: 3.5rem; /* Sedikit disesuaikan agar pas */
+    margin-bottom: 1rem;
+    /* Efek highlight pada nama seperti inspirasi */
+    color: #a855f7;
+}
+
+#home h1 span {
+    color: #ffffff; /* Warna putih untuk sisa teks */
+}
+
 
 #home p {
     font-size: 1.2rem;
     max-width: 600px;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem; /* Jarak lebih besar ke tombol */
+    color: #ccc; /* Warna abu-abu agar tidak terlalu menonjol */
 }
 
 .cta-button {
@@ -296,20 +315,25 @@ section h2 {
 /* Styling Bagian Contact */
 .contact-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1.2fr; /* Beri form sedikit lebih banyak ruang */
     gap: 3rem;
     width: 100%;
     max-width: 1200px;
     margin-top: 2rem;
     text-align: left;
-    background-color: rgba(255, 255, 255, 0.05);
-    padding: 3rem;
-    border-radius: 10px;
+    /* Hapus background dan padding dari container utama */
 }
 
-.contact-info h3, .contact-form h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
+.contact-form {
+    /* Pindahkan styling kartu ke sini */
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 2.5rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-info {
+    padding-top: 1rem; /* Beri sedikit padding agar sejajar */
 }
 
 .info-item {
@@ -360,4 +384,99 @@ section h2 {
     width: fit-content;
     cursor: pointer;
     border: none;
+}
+
+/* MEDIA QUERIES UNTUK RESPONSIVE DESIGN */
+@media (max-width: 992px) {
+    .about-container, .contact-container {
+        grid-template-columns: 1fr; /* Ubah layout 2 kolom menjadi 1 kolom */
+    }
+
+    .about-text {
+        text-align: center;
+    }
+
+    .about-buttons {
+        justify-content: center;
+    }
+
+    .contact-info {
+        text-align: center;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    #home h1 {
+        font-size: 3rem;
+    }
+    
+    nav {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}   
+
+/* Styling untuk Tombol Filter Skills */
+.skills-filter {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 1px solid #a855f7;
+    color: #fff;
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    background-color: rgba(168, 85, 247, 0.2);
+}
+
+.filter-btn.active {
+    background-color: #a855f7;
+    font-weight: bold;
+}
+
+.project-info {
+    padding: 1.5rem;
+    text-align: left;
+    display: flex; /* Tambahkan flexbox */
+    flex-direction: column; /* Atur arah ke bawah */
+    height: 100%; /* Pastikan info memenuhi ruang */
+}
+
+.project-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem; /* Beri jarak dari tags */
+}
+
+.project-info p {
+    margin-bottom: 1rem;
+    flex-grow: 1; /* Biarkan paragraf mengisi ruang yang tersisa */
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    /* Hapus margin-bottom agar bisa diatur dari elemen lain */
+}
+
+.project-tags span {
+    background-color: rgba(168, 85, 247, 0.2);
+    color: #c084fc;
+    padding: 0.3rem 0.7rem;
+    border-radius: 5px;
+    font-size: 0.8rem;
 }
