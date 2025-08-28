@@ -84,6 +84,38 @@ tsParticles.load("tsparticles", {
 });
 
 // Kode untuk filter skill card (tetap sama, jangan dihapus)
+
+function sendEmail(e) {
+    // Mencegah form melakukan submit default (reload halaman)
+    e.preventDefault();
+
+    // Mengambil tombol submit
+    const submitButton = document.querySelector('.contact-form button');
+    const originalButtonText = submitButton.innerHTML;
+
+    // Mengubah teks tombol untuk memberi tahu user bahwa email sedang dikirim
+    submitButton.disabled = true;
+    submitButton.innerHTML = 'Sending...';
+    
+    // Mengirim form menggunakan EmailJS
+    emailjs.sendForm('service_thotoe2', 'template_hjgr9qf', e.target, 'tRUO7kidGA_BCXGQ_')
+    .then((result) => {
+            console.log('SUCCESS!', result.status, result.text);
+            alert('Message sent successfully!');
+            // Mengembalikan teks tombol ke semula
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalButtonText;
+            // Mengosongkan form setelah berhasil
+            e.target.reset();
+          }, (error) => {
+            console.log('FAILED...', error);
+            alert('Failed to send message. Please try again.');
+            // Mengembalikan teks tombol ke semula jika gagal
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalButtonText;
+          });
+        }
+        
 document.addEventListener('DOMContentLoaded', () => {
     const filterButtons = document.querySelectorAll('.filter-btn');
     const skillCards = document.querySelectorAll('.skill-card');
@@ -104,42 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
-});
-
-function sendEmail(e) {
-    // Mencegah form melakukan submit default (reload halaman)
-    e.preventDefault();
-
-    // Mengambil tombol submit
-    const submitButton = document.querySelector('.contact-form button');
-    const originalButtonText = submitButton.innerHTML;
-
-    // Mengubah teks tombol untuk memberi tahu user bahwa email sedang dikirim
-    submitButton.disabled = true;
-    submitButton.innerHTML = 'Sending...';
-
-    // Mengirim form menggunakan EmailJS
-    emailjs.sendForm('service_thotoe2', 'template_hjgr9qf', e.target, 'tRUO7kidGA_BCXGQ_')
-        .then((result) => {
-            console.log('SUCCESS!', result.status, result.text);
-            alert('Message sent successfully!');
-            // Mengembalikan teks tombol ke semula
-            submitButton.disabled = false;
-            submitButton.innerHTML = originalButtonText;
-            // Mengosongkan form setelah berhasil
-            e.target.reset();
-        }, (error) => {
-            console.log('FAILED...', error);
-            alert('Failed to send message. Please try again.');
-            // Mengembalikan teks tombol ke semula jika gagal
-            submitButton.disabled = false;
-            submitButton.innerHTML = originalButtonText;
-        });
-}
-
-// Menambahkan event listener ke form
-document.addEventListener('DOMContentLoaded', () => {
-    // ... (kode filter skill Anda yang sudah ada jangan dihapus) ...
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', sendEmail);
