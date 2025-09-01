@@ -1,10 +1,10 @@
 tsParticles.load("tsparticles", {
   background: {
-    color: "#0f0f1a", // Warna latar belakang
+    color: "#0f0f1a",
   },
   particles: {
     number: {
-      value: 80, // Jumlah bintang
+      value: 100,
       density: {
         enable: true,
         value_area: 800,
@@ -21,15 +21,15 @@ tsParticles.load("tsparticles", {
       random: true,
     },
     size: {
-      value: 1.5, // Ukuran bintang sedikit lebih besar
+      value: 1.5,
       random: true,
     },
     links: {
-      enable: false, // Tidak ada garis antar bintang
+      enable: false,
     },
     move: {
-      enable: true, // PENTING: Pastikan bintang bergerak
-      speed: 0.5, // Kecepatan gerakan bintang statis (pelan)
+      enable: true,
+      speed: 0.3,
       direction: "none",
       out_mode: "out",
       bounce: false,
@@ -48,39 +48,74 @@ tsParticles.load("tsparticles", {
     },
   },
   detectRetina: true,
-  // Konfigurasi untuk bintang jatuh (emitters) tetap sama
-  emitters: {
-    direction: "top-right",
-    rate: {
-      quantity: 1,
-      delay: 7,
-    },
-    position: {
-      x: 0,
-      y: 50,
-    },
-    size: {
-      width: 0,
-      height: 0,
-    },
-    particles: {
-      size: {
-        value: 2,
+  // Konfigurasi Hujan Meteor dengan Jejak/Buntut
+  emitters: [
+    {
+      direction: "top-right",
+      rate: {
+        quantity: 1,
+        delay: 5,
       },
-      move: {
-        speed: 10,
-        direction: "none",
-        outModes: {
-          default: "destroy",
+      position: {
+        x: 0,
+        y: 30,
+      },
+      size: {
+        width: 0,
+        height: 0,
+      },
+      particles: {
+        size: {
+          value: [1, 3],
+        },
+        move: {
+          speed: 15, // Kecepatan tinggi untuk meteor
+          direction: "none",
+          outModes: {
+            default: "destroy", // Hilang saat keluar layar
+          },
+        },
+        // Inilah yang membuat "buntut" atau jejak
+        trail: {
+          enable: true,
+          fillColor: "#0f0f1a", // Warna jejak sama dengan background
+          length: 10, // Panjang buntut
         },
       },
-      trail: {
-        enable: true,
-        fillColor: "#0f0f1a",
-        length: 5,
-      },
     },
-  },
+    {
+      direction: "top-left",
+      rate: {
+        quantity: 1,
+        delay: 7,
+      },
+      position: {
+        x: 100,
+        y: 50,
+      },
+      size: {
+        width: 0,
+        height: 0,
+      },
+      particles: {
+        size: {
+          value: [1, 2],
+        },
+        move: {
+          speed: 12,
+          direction: "none",
+          outModes: {
+            default: "destroy",
+          },
+        },
+        trail: {
+          enable: true,
+          fillColor: "#0f0f1a",
+          length: 12,
+        },
+      },
+    }
+  ],
 });
 
 // Kode untuk filter skill card (tetap sama, jangan dihapus)
@@ -139,5 +174,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', sendEmail);
+    }
+
+    if(document.getElementById('typed-text')) {
+        new Typed('#typed-text', {
+            strings: ['Yehemia Gauand.', 'a Web Developer.', 'a Tech Creator.'],
+            typeSpeed: 70,  // Kecepatan mengetik
+            backSpeed: 50,  // Kecepatan menghapus
+            loop: true,     // Mengulang animasi
+            backDelay: 2000 // Waktu jeda sebelum mulai menghapus teks
+        });
     }
 });

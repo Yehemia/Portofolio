@@ -144,10 +144,9 @@ section h2 {
 
 .about-container {
     display: grid;
-    /* Mengubah layout agar lebih seimbang */
     grid-template-columns: 1fr 1fr; 
-    gap: 4rem; /* Menambah jarak antar kolom */
-    align-items: center; /* Membuat konten sejajar di tengah secara vertikal */
+    gap: 4rem;
+    align-items: start; /* <-- MENJADI SEPERTI INI */
     max-width: 1200px;
     margin-top: 2rem;
     text-align: left;
@@ -195,19 +194,25 @@ section h2 {
     transform: translateY(-3px);
 }
 
+/* Di file style.css */
 .about-services {
-    display: flex;
-    flex-direction: column;
+    display: grid; 
+    grid-template-rows: repeat(3, 1fr);
     gap: 1.5rem;
 }
 
 .service-card {
-    /* Efek Glassmorphism */
-    background-color: rgba(30, 30, 45, 0.5); /* Latar belakang lebih gelap & transparan */
-    backdrop-filter: blur(10px); /* Efek blur pada background */
-    
+    /* Tampilan baru dengan Flexbox */
+    display: flex;
+    align-items: center; /* Membuat ikon dan teks sejajar di tengah secara vertikal */
+    gap: 1.5rem; /* Memberi jarak antara ikon dan teks */
+    text-align: left; /* Memastikan teks rata kiri */
+
+    /* Efek Glassmorphism (TETAP SAMA) */
+    background-color: rgba(30, 30, 45, 0.5);
+    backdrop-filter: blur(10px);
     padding: 2.5rem 2rem;
-    border-radius: 15px; /* Sudut lebih tumpul */
+    border-radius: 15px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: transform 0.3s ease, border-color 0.3s ease;
 }
@@ -222,11 +227,12 @@ section h2 {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: rgba(168, 85, 247, 0.1); /* Latar belakang ungu transparan */
+    background-color: rgba(168, 85, 247, 0.1);
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 1.5rem;
+    flex-shrink: 0; /* Mencegah ikon menyusut */
+    /* margin-bottom dihapus */
 }
 
 .service-card i {
@@ -438,6 +444,14 @@ section h2 {
     color: #a855f7;
 }
 
+.project-card .project-info h3 {
+    transition: color 0.3s ease; /*transisi perubahan warna */
+}
+
+.project-card:hover .project-info h3 {
+    color: #a855f7; /* Mengubah warna judul menjadi ungu saat kartu di-hover */
+}
+
 /* Style untuk tombol "Check My Github" */
 #github-btn {
     margin: 4rem auto 0;
@@ -605,3 +619,22 @@ section h2 {
     }
 }   
 
+/* ===== Styling Scrollbar Kustom ===== */
+/* Untuk browser berbasis Webkit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 8px; /* Membuat scrollbar lebih ramping */
+}
+
+::-webkit-scrollbar-track {
+    background: #0f0f1a; /* Warna track sama dengan background body */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #a855f7; /* Warna ungu yang sama dengan aksen website Anda */
+    border-radius: 10px; /* Membuat ujungnya membulat */
+    border: 2px solid #0f0f1a; /* Memberi sedikit jarak dari tepi track */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #c084fc; /* Warna sedikit lebih terang saat di-hover */
+}
