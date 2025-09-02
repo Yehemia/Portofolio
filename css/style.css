@@ -638,3 +638,56 @@ section h2 {
 ::-webkit-scrollbar-thumb:hover {
     background-color: #c084fc; /* Warna sedikit lebih terang saat di-hover */
 }
+
+/* ===== CSS untuk Navigasi Mobile (Hamburger Menu) ===== */
+
+/* Ikon hamburger defaultnya disembunyikan di desktop */
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    /* Aturan umum untuk layar kecil */
+    #home h1 {
+        font-size: 3rem;
+    }
+
+    /* --- Perbaikan Navigasi Mobile --- */
+    nav {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+    /* 1. Tampilkan ikon hamburger */
+    .menu-toggle {
+        display: block;
+        z-index: 1001;
+    }
+
+
+    /* 2. Sembunyikan menu navigasi desktop */
+    nav ul.nav-links {
+        display: flex; /* Biarkan flex agar properti di bawah bekerja */
+        position: fixed;
+        top: 0;
+        right: -100%; /* Sembunyikan di luar layar ke kanan */
+        width: 60%;
+        height: 100vh;
+        background-color: rgba(15, 15, 26, 0.95); /* Sedikit lebih pekat */
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2.5rem;
+        transition: right 0.5s ease-in-out; /* Ubah transisi ke properti 'right' */
+        z-index: 1000; /* Pastikan menu di atas konten lain */
+    }
+
+    /* 3. Aturan untuk menampilkan menu saat aktif */
+    nav ul.nav-links.active {
+        right: 0; /* Tampilkan menu dengan menggesernya ke posisi semula */
+    }
+}

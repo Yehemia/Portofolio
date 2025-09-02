@@ -1,3 +1,4 @@
+// Konfigurasi tsParticles dengan efek hujan meteor
 tsParticles.load("tsparticles", {
   background: {
     color: "#0f0f1a",
@@ -118,71 +119,95 @@ tsParticles.load("tsparticles", {
   ],
 });
 
-// Kode untuk filter skill card (tetap sama, jangan dihapus)
 
+// Fungsi untuk mengirim email (didefinisikan di luar agar bisa diakses)
 function sendEmail(e) {
-    // Mencegah form melakukan submit default (reload halaman)
     e.preventDefault();
-
-    // Mengambil tombol submit
     const submitButton = document.querySelector('.contact-form button');
     const originalButtonText = submitButton.innerHTML;
-
-    // Mengubah teks tombol untuk memberi tahu user bahwa email sedang dikirim
     submitButton.disabled = true;
     submitButton.innerHTML = 'Sending...';
     
-    // Mengirim form menggunakan EmailJS
     emailjs.sendForm('service_thotoe2', 'template_hjgr9qf', e.target, 'tRUO7kidGA_BCXGQ_')
     .then((result) => {
             console.log('SUCCESS!', result.status, result.text);
             alert('Message sent successfully!');
-            // Mengembalikan teks tombol ke semula
             submitButton.disabled = false;
             submitButton.innerHTML = originalButtonText;
-            // Mengosongkan form setelah berhasil
             e.target.reset();
           }, (error) => {
             console.log('FAILED...', error);
             alert('Failed to send message. Please try again.');
-            // Mengembalikan teks tombol ke semula jika gagal
             submitButton.disabled = false;
             submitButton.innerHTML = originalButtonText;
           });
-        }
-        
+}
+
+
+// Event listener utama yang berjalan setelah semua konten HTML dimuat
 document.addEventListener('DOMContentLoaded', () => {
+
+    // 1. Logika untuk Filter Skills
     const filterButtons = document.querySelectorAll('.filter-btn');
     const skillCards = document.querySelectorAll('.skill-card');
-
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
             filterButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
-
             const filter = button.getAttribute('data-filter');
-
             skillCards.forEach(card => {
-                if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
+                card.style.display = (filter === 'all' || card.getAttribute('data-category') === filter) ? 'block' : 'none';
             });
         });
     });
-    const contactForm = document.querySelector('.contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', sendEmail);
-    }
 
+    // 2. Logika untuk Efek Mengetik
     if(document.getElementById('typed-text')) {
         new Typed('#typed-text', {
             strings: ['Yehemia Gauand.', 'a Web Developer.', 'a Tech Creator.'],
-            typeSpeed: 70,  // Kecepatan mengetik
-            backSpeed: 50,  // Kecepatan menghapus
-            loop: true,     // Mengulang animasi
-            backDelay: 2000 // Waktu jeda sebelum mulai menghapus teks
+            typeSpeed: 70,
+            backSpeed: 50,
+            loop: true,
+            backDelay: 2000
         });
+    }
+    
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const navLinkItems = document.querySelectorAll('.nav-links li a');
+
+    if (menuToggle && navLinks) {
+        // Tampilkan/sembunyikan menu saat ikon hamburger diklik
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+
+            // Ganti ikon hamburger menjadi 'X' saat menu terbuka
+            const icon = menuToggle.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark'); // <-- SUDAH DIGANTI
+            } else {
+                icon.classList.remove('fa-xmark'); // <-- SUDAH DIGANTI
+                icon.classList.add('fa-bars');
+            }
+        });
+    }
+
+    // Sembunyikan menu setelah salah satu link di dalamnya diklik
+    navLinkItems.forEach(link => {
+        link.addEventListener('click', () => {
+            if (navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                // Kembalikan ikon 'X' menjadi hamburger
+                const icon = menuToggle.querySelector('i');
+                icon.classList.remove('fa-xmark'); // <-- SUDAH DIGANTI
+                icon.classList.add('fa-bars');
+            }
+        });
+    });
+    // 5. Logika untuk Form Kontak
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', sendEmail);
     }
 });
