@@ -620,7 +620,6 @@ section h2 {
 }   
 
 /* ===== Styling Scrollbar Kustom ===== */
-/* Untuk browser berbasis Webkit (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
     width: 8px; /* Membuat scrollbar lebih ramping */
 }
