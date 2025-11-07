@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 featuresList.innerHTML = '';
                 data.features.forEach(featureText => {
                     const listItem = document.createElement('li');
-                    listItem.innerHTML = featureText; // Gunakan innerHTML untuk merender tag
+                    listItem.innerHTML = `<span>${featureText}</span>`;
                     featuresList.appendChild(listItem);
                 });
 
