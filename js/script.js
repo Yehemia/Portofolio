@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Logika untuk Efek Mengetik
     if(document.getElementById('typed-text')) {
         new Typed('#typed-text', {
-            strings: ['Yehemia Gauand.', 'a Web Developer.', 'a Tech Creator.'],
+            strings: ['Yehemia Gauand.', 'a Web Developer.', 'a Mobile Developer.', 'a UI/UX Designer.'],
             typeSpeed: 70,
             backSpeed: 50,
             loop: true,
@@ -172,42 +172,169 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
+    // 3. Logika untuk Navigasi Mobile (Hamburger Menu)
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
     const navLinkItems = document.querySelectorAll('.nav-links li a');
 
     if (menuToggle && navLinks) {
-        // Tampilkan/sembunyikan menu saat ikon hamburger diklik
         menuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-
-            // Ganti ikon hamburger menjadi 'X' saat menu terbuka
             const icon = menuToggle.querySelector('i');
             if (navLinks.classList.contains('active')) {
                 icon.classList.remove('fa-bars');
-                icon.classList.add('fa-xmark'); // <-- SUDAH DIGANTI
+                icon.classList.add('fa-xmark');
             } else {
-                icon.classList.remove('fa-xmark'); // <-- SUDAH DIGANTI
+                icon.classList.remove('fa-xmark');
                 icon.classList.add('fa-bars');
             }
         });
     }
 
-    // Sembunyikan menu setelah salah satu link di dalamnya diklik
     navLinkItems.forEach(link => {
         link.addEventListener('click', () => {
             if (navLinks.classList.contains('active')) {
                 navLinks.classList.remove('active');
-                // Kembalikan ikon 'X' menjadi hamburger
                 const icon = menuToggle.querySelector('i');
-                icon.classList.remove('fa-xmark'); // <-- SUDAH DIGANTI
+                icon.classList.remove('fa-xmark');
                 icon.classList.add('fa-bars');
             }
         });
     });
-    // 5. Logika untuk Form Kontak
+
+    // 4. Logika untuk Form Kontak
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', sendEmail);
+    }
+
+    // ===== 5. LOGIKA BARU UNTUK MODAL PROYEK =====
+
+    // Database mini untuk detail proyekmu
+    const projectDetails = {
+        'kenangan-inn': {
+            title: 'Kenangan Inn: Sistem Manajemen Hotel',
+            images: [
+                'images/projects/kenangan-inn/admin-dashboard-chart.png',
+                'images/projects/kenangan-inn/dashboard-customer.png',
+                'images/projects/kenangan-inn/form-booking.png',
+                'images/projects/kenangan-inn/payment-qr.png',
+                'images/projects/kenangan-inn/checkin-management.png',
+                'images/projects/kenangan-inn/checkout-penalty.png',
+                'images/projects/kenangan-inn/user-management.png',
+                'images/projects/kenangan-inn/invoice-pdf.jpg'
+            ],
+            tags: ['Java', 'JavaFX', 'MySQL', 'MVC Pattern', 'iTextPDF', 'ZXing'],
+            description: 'Aplikasi desktop komprehensif yang dirancang untuk mengelola seluruh alur operasional hotel, mulai dari pemesanan online oleh pelanggan hingga manajemen check-in/out oleh staf dan pemantauan analitik oleh admin.',
+            features: [
+              '<strong>Dasbor Analitik Admin:</strong> Menampilkan grafik pendapatan dan statistik reservasi secara real-time untuk pengambilan keputusan bisnis.',
+              '<strong>Alur Booking Pelanggan:</strong> Proses pemesanan kamar yang intuitif, dari pemilihan tanggal hingga pembayaran.',
+              '<strong>Pembayaran via QR Code:</strong> Menghasilkan QR Code unik untuk setiap transaksi dan melakukan validasi pembayaran.',
+              '<strong>Manajemen Operasional Resepsionis:</strong> Antarmuka khusus untuk proses Check-In, Check-Out, dan penanganan denda secara efisien.',
+              '<strong>Pembuatan Invoice PDF Otomatis:</strong> Sistem secara otomatis menghasilkan dan mengirimkan invoice dalam format PDF setelah pembayaran berhasil.',
+              '<strong>Manajemen Data (CRUD):</strong> Fitur lengkap untuk mengelola data pengguna, tipe kamar, dan fasilitas hotel.'
+            ],
+            challenge: 'Mencegah *double booking* saat banyak pengguna memesan kamar terakhir secara bersamaan. Solusinya adalah dengan menerapkan penguncian baris database (`SELECT ... FOR UPDATE`) dalam sebuah transaksi untuk memastikan integritas data.'
+        },
+        'Dede-Clothing': {
+          title: 'Dede Clothing: Manajemen Inventory dan POS',
+          images: [
+            'images/projects/Dede-Clothing/pos.png',
+            'images/projects/Dede-Clothing/menu-login.png',
+            'images/projects/Dede-Clothing/Manajemen-inventory.png',
+            'images/projects/Dede-Clothing/dashboard-manager.png'
+          ],
+          tags: ['Java', 'JavaFX', 'MySQL', 'MVC Pattern'],
+          description: 'Aplikasi desktop yang dirancang untuk membantu operasional harian toko pakaian. Aplikasi ini menerapkan sistem kontrol akses berbasis peran (Role-Based Access Control) untuk membedakan fitur yang dapat diakses oleh Manajer, Kasir, dan staf Inventaris.',
+            features: [
+              '<strong>Multi-Role Access:</strong> Sistem login aman yang mengarahkan pengguna ke dasbor berbeda sesuai peran mereka (Manajer, Kasir, Inventaris).',
+              '<strong>Point of Sale (Kasir):</strong> Antarmuka intuitif bagi kasir untuk memproses transaksi penjualan dengan cepat.',
+              '<strong>Manajemen Inventaris:</strong> Fitur CRUD (Create, Read, Update, Delete) lengkap untuk mengelola data stok barang masuk dan keluar.',
+              '<strong>Laporan Manajer:</strong> Dasbor khusus bagi manajer untuk memantau aktivitas dan laporan penjualan toko.'
+            ],
+            challenge: 'Tantangan utama adalah mengelola *state* aplikasi yang berbeda untuk setiap peran pengguna dan memastikan keamanan data agar staf biasa tidak bisa mengakses fitur manajer. Solusinya adalah dengan menerapkan pengecekan sesi yang ketat di setiap controller.'
+        },
+    };
+
+    // Ambil elemen-elemen DOM yang diperlukan untuk modal
+    const modal = document.getElementById('project-modal');
+    const detailButtons = document.querySelectorAll('.project-detail-btn');
+    const closeButton = document.querySelector('.close-button');
+
+    // Fungsi untuk membuka modal dan mengisi datanya
+    detailButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const projectId = button.dataset.projectId;
+            const data = projectDetails[projectId];
+
+            if (data && modal) {
+                // Isi konten teks
+                modal.querySelector('#modal-title').textContent = data.title;
+                modal.querySelector('#modal-description').textContent = data.description;
+                modal.querySelector('#modal-challenge').textContent = data.challenge;
+
+                // Isi tags
+                const tagsContainer = modal.querySelector('#modal-tags');
+                tagsContainer.innerHTML = '';
+                data.tags.forEach(tag => {
+                    const tagElement = document.createElement('span');
+                    tagElement.textContent = tag;
+                    tagsContainer.appendChild(tagElement);
+                });
+                
+                // Isi fitur (mendukung tag HTML seperti <strong>)
+                const featuresList = modal.querySelector('#modal-features');
+                featuresList.innerHTML = '';
+                data.features.forEach(featureText => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = featureText; // Gunakan innerHTML untuk merender tag
+                    featuresList.appendChild(listItem);
+                });
+
+                // Isi Galeri Gambar
+                const mainImage = modal.querySelector('#modal-main-image');
+                const thumbnailsContainer = modal.querySelector('#modal-thumbnails');
+                thumbnailsContainer.innerHTML = ''; 
+                
+                if (data.images && data.images.length > 0) {
+                    mainImage.src = data.images[0];
+                    
+                    data.images.forEach((imgSrc, index) => {
+                        const thumb = document.createElement('img');
+                        thumb.src = imgSrc;
+                        
+                        if (index === 0) thumb.classList.add('active');
+                        
+                        thumb.addEventListener('click', () => {
+                            mainImage.src = imgSrc;
+                            thumbnailsContainer.querySelector('.active')?.classList.remove('active');
+                            thumb.classList.add('active');
+                        });
+                        
+                        thumbnailsContainer.appendChild(thumb);
+                    });
+                }
+                
+                // Tampilkan modal
+                modal.style.display = 'flex';
+            }
+        });
+    });
+
+    // Fungsi untuk menutup modal
+    function closeModal() {
+        if (modal) modal.style.display = 'none';
+    }
+
+    if (closeButton) {
+        closeButton.addEventListener('click', closeModal);
+    }
+    
+    if (modal) {
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
     }
 });
