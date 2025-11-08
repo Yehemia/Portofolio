@@ -538,6 +538,24 @@ section h2 {
     line-height: 1.7;
 }
 
+.modal-video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* Rasio 16:9 */
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    background-color: #000;
+}
+
+.modal-video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 /* Styling khusus untuk daftar fitur */
 #modal-features {
     list-style: none;

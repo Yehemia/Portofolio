@@ -277,6 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         'air-canvas': {
             title: 'Air Canvas: AI-Powered Drawing',
+            embedUrl: 'https://drive.google.com/file/d/1NP6HESPKeC-uqGu9NM5lCYPxnuPnitBL/preview',
             images: [
                 'images/projects/air-canvas/action-shot.png',
                 'images/projects/air-canvas/color-switching.png',
@@ -312,6 +313,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 modal.querySelector('#modal-description').textContent = data.description;
                 modal.querySelector('#modal-challenge').textContent = data.challenge;
 
+                const videoContainer = modal.querySelector('#modal-video-container');
+                const videoFrame = modal.querySelector('#modal-video-frame');
+
+                // Cek apakah properti 'embedUrl' ada di data proyek
+                if (data.embedUrl) {
+                    videoContainer.style.display = 'block';
+                    videoFrame.src = data.embedUrl; // Langsung pakai URL lengkapnya
+                } else {
+                    videoContainer.style.display = 'none';
+                    videoFrame.src = '';
+                }
                 // Isi tags
                 const tagsContainer = modal.querySelector('#modal-tags');
                 tagsContainer.innerHTML = '';
@@ -377,3 +389,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+function closeModal() {
+    if (modal) {
+        modal.style.display = 'none';
+        // Hentikan video dengan mengosongkan src
+        modal.querySelector('#modal-video-frame').src = '';
+    }
+}
