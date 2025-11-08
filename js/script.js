@@ -254,6 +254,45 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             challenge: 'Tantangan utama adalah mengelola *state* aplikasi yang berbeda untuk setiap peran pengguna dan memastikan keamanan data agar staf biasa tidak bisa mengakses fitur manajer. Solusinya adalah dengan menerapkan pengecekan sesi yang ketat di setiap controller.'
         },
+        'todo-app': {
+            title: 'TaskMaster Pro: Productivity App',
+            images: [
+                'images/projects/todo-app/home-screen.png',
+                'images/projects/todo-app/add-task.png',
+                'images/projects/todo-app/add-task2.png',
+                'images/projects/todo-app/add-task3.png',
+                'images/projects/todo-app/stats-screen.png',
+                'images/projects/todo-app/dark-mode.png'
+            ],
+            tags: ['Flutter', 'Dart', 'Hive', 'Provider', 'Android/iOS'],
+            description: 'Aplikasi mobile lintas platform yang dirancang untuk meningkatkan produktivitas pengguna. Dibangun menggunakan framework Flutter, aplikasi ini menawarkan pengalaman pengguna yang mulus dengan performa tinggi berkat penyimpanan lokal yang efisien.',
+            features: [
+                '<strong>Manajemen Tugas Intuitif:</strong> Buat, edit, dan atur prioritas tugas dengan mudah menggunakan antarmuka yang bersih.',
+                '<strong>Penyimpanan Lokal (Offline-First):</strong> Menggunakan Hive Database untuk penyimpanan data yang sangat cepat dan bisa diakses tanpa internet.',
+                '<strong>Notifikasi Pintar:</strong> Sistem pengingat terintegrasi agar pengguna tidak melewatkan tenggat waktu tugas.',
+                '<strong>Analitik Produktivitas:</strong> Halaman statistik visual untuk melacak penyelesaian tugas dan performa harian.',
+                '<strong>Tema Dinamis:</strong> Dukungan penuh untuk Mode Gelap dan Terang sesuai preferensi pengguna.'
+            ],
+            challenge: 'Tantangan utama adalah mengoptimalkan performa aplikasi saat menangani banyak data tugas sekaligus menjaga sinkronisasi UI yang mulus. Solusinya adalah menggunakan **Provider** untuk manajemen state yang efisien dan **Hive** untuk operasi database non-blocking.'
+        },
+        'air-canvas': {
+            title: 'Air Canvas: AI-Powered Drawing',
+            images: [
+                'images/projects/air-canvas/action-shot.png',
+                'images/projects/air-canvas/color-switching.png',
+                'images/projects/air-canvas/clear-screen.png',
+                'images/projects/air-canvas/drawing-result.png'
+            ],
+            tags: ['Python', 'OpenCV', 'MediaPipe', 'NumPy', 'Computer Vision'],
+            description: 'Eksplorasi di bidang Computer Vision yang mengubah webcam biasa menjadi kanvas digital. Menggunakan library MediaPipe untuk pelacakan tangan yang presisi, aplikasi ini memungkinkan pengguna menggambar di udara tanpa alat tambahan apa pun, hanya menggunakan ujung jari telunjuk.',
+            features: [
+                '<strong>Hand Tracking Real-time:</strong> Menggunakan model Machine Learning dari MediaPipe untuk mendeteksi 21 titik landmark tangan dengan latensi sangat rendah.',
+                '<strong>Virtual UI:</strong> Antarmuka tombol virtual di layar yang responsif terhadap sentuhan jari untuk mengganti warna (Biru, Hijau, Merah, Kuning) atau menghapus kanvas.',
+                '<strong>Drawing Algorithm:</strong> Algoritma penggambaran garis yang mulus menggunakan OpenCV untuk menghubungkan titik-titik koordinat jari antar frame.',
+                '<strong>Canvas Merging:</strong> Teknik penggabungan citra (image blending) untuk menampilkan hasil goresan secara transparan di atas feed kamera asli.'
+            ],
+            challenge: 'Tantangan terbesar adalah mengurangi *noise* atau getaran dari deteksi jari agar garis yang digambar terlihat halus dan tidak patah-patah. Solusinya adalah dengan mengimplementasikan logika untuk menghubungkan titik sebelumnya dengan titik saat ini menggunakan `cv2.line` daripada hanya menggambar titik-titik terpisah.'
+        }
     };
 
     // Ambil elemen-elemen DOM yang diperlukan untuk modal
